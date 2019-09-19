@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 # Author  ：Rocklee
 # Time  ：2019/9/19  14:57
-# -*- coding: utf-8 -*-
-# Author  ：Rocklee
-# Time  ：2019/9/19  10:34
 
 import six
 
 # print(json_tools.diff(dict1,dict2))
 def diff(local, other):
-    """ 计算两个JSON文档之间的差异。
+    """ 计算两个JSON数据之间的差异。
     """
     def _recursive_diff(l, r, res, path='/'):
         if type(l) != type(r):
