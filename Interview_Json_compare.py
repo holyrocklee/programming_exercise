@@ -67,6 +67,27 @@ def diff(local, other):
     _recursive_diff(local, other, result)
     return result
 
+def diff2(src_data,dst_data):
+    if isinstance(src_data,dict):
+        for key in dst_data:
+            if key not in src_data:
+                print("Src不存在这个key："+key)
+        for key in src_data:
+            if key in dst_data:
+                thiskey = key
+                diff2(src_data[key],dst_data[key])
+            else:
+                print("Src不存在这个key："+key)
+    elif isinstance(src_data,list):
+        if len(src_data)!=len(dst_data):
+            print("list的长度不相等")
+        for src_list,dst_list in zip(src_data,dst_data):
+            diff2(src_list,dst_list)
+    else:
+        if str(src_data)!=str(dst_data):
+            print(src_data)
+
+
 dict1 = {
     "HeWeather6": [
         {
@@ -75,7 +96,7 @@ dict1 = {
                 "wind_dir": "东北风",
                 "wind_spd": "11",
                 "wind_sc": "2",
-                # "sun":[123,456]
+                "sun":[456,123]
             }
         }
     ]
@@ -89,10 +110,11 @@ dict2 = {
                 "wind_dir": "东北风",
                 "wind_sc": "2",
                 "wind_spd": "11",
-                # "sun":[456,123]
+                "sun":[456,123]
             }
         }
     ]
 }
 #输出的结果如果是[]，则表示两个json字符串相等；如果不同，则输出一个包含两个元素（对比显示出不同之处）的列表
-print(diff(dict1,dict2))
+# print(diff(dict1,dict2))
+print(diff2(dict1,dict2))#相同则输出None
