@@ -69,24 +69,24 @@ def diff(local, other):
 
 def diff2(src_data,dst_data):
     if isinstance(src_data,dict):
+        #若为dict格式，递归思路：首先判断A所有的键在B中，在判断B所有的键在A中，然后再递归,递归区分列表和字典；
         for key in dst_data:
             if key not in src_data:
                 print("Src不存在这个key："+key)
         for key in src_data:
             if key in dst_data:
-                thiskey = key
                 diff2(src_data[key],dst_data[key])
             else:
                 print("Src不存在这个key："+key)
     elif isinstance(src_data,list):
         if len(src_data)!=len(dst_data):
             print("list的长度不相等")
-        for src_list,dst_list in zip(src_data,dst_data):
+        for src_list,dst_list in zip(sorted(src_data),sorted(dst_data)):
             diff2(src_list,dst_list)
     else:
+        # 可以输出不同的value，也可以根据自己的需要进行改进。
         if str(src_data)!=str(dst_data):
             print(src_data)
-
 
 dict1 = {
     "HeWeather6": [
@@ -96,7 +96,7 @@ dict1 = {
                 "wind_dir": "东北风",
                 "wind_spd": "11",
                 "wind_sc": "2",
-                "sun":[456,123]
+                "sun":[456,789,123]
             }
         }
     ]
@@ -110,11 +110,11 @@ dict2 = {
                 "wind_dir": "东北风",
                 "wind_sc": "2",
                 "wind_spd": "11",
-                "sun":[456,123]
+                "sun":[123,456,789]
             }
         }
     ]
 }
 #输出的结果如果是[]，则表示两个json字符串相等；如果不同，则输出一个包含两个元素（对比显示出不同之处）的列表
 # print(diff(dict1,dict2))
-print(diff2(dict1,dict2))#相同则输出None
+print(diff2(dict1,dict2))#相同则输出None,更深层次的还能深入到
