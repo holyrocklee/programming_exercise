@@ -67,7 +67,7 @@ def diff(local, other):
     _recursive_diff(local, other, result)
     return result
 
-def diff2(src_data,dst_data):
+def diff2(src_data,dst_data):  #此方法最合适
     if isinstance(src_data,dict):
         #若为dict格式，递归思路：首先判断A所有的键在B中，在判断B所有的键在A中，然后再递归,递归区分列表和字典；
         for key in dst_data:
@@ -117,4 +117,4 @@ dict2 = {
 }
 #输出的结果如果是[]，则表示两个json字符串相等；如果不同，则输出一个包含两个元素（对比显示出不同之处）的列表
 # print(diff(dict1,dict2))
-print(diff2(dict1,dict2))#相同则输出None,更深层次的还能深入到
+print(diff2(dict1,dict2))#相同则输出None
